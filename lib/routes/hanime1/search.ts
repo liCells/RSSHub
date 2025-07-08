@@ -35,16 +35,20 @@ async function handler(ctx) {
     const items = $(target)
         .find('.search-doujin-videos.hidden-xs') // 过滤掉重复的元素
         .toArray()
+        .filter(item => {
+            const title = $(item).attr('title');
+            return title && title.trim() !== '';
+        })
         .map((item) => {
             const element = $(item);
             const title = element.attr('title');
-            const videoLink = element.find('a.overlay').attr('href');
+            const link = element.find('a.overlay').attr('href');
             const imageSrc = element.find('img[style*="object-fit: cover"]').attr('src'); // 选择缩略图
 
             return {
                 title,
-                videoLink,
-                description: `<img src="${imageSrc}">`,
+                link,
+                description: `<a href="${link}">Source</a><br><img src="${imageSrc}">`,
             };
         });
 
