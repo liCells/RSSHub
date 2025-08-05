@@ -32,7 +32,9 @@ async function handler() {
             const loc = $(url).find('loc').text();
             const lastmod = $(url).find('lastmod').text();
             return { loc, lastmod };
-        });
+        })
+        // Filter out URLs that exactly match the root URL
+        .filter((post) => post.loc !== rootUrl && post.loc !== `${rootUrl}/`);
 
     // 按 lastmod 降序排序
     posts.sort((a, b) => new Date(b.lastmod) - new Date(a.lastmod));
