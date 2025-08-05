@@ -55,7 +55,7 @@ async function handler() {
             const content = load(detailResponse);
 
             const title = post.title;
-            const description = content('prose').html();
+            const description = content('div.prose').html();
             const pubDate = post.pubDate;
             const author = post.author;
 
